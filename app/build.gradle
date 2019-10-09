@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        applicationId "es.situm.gettingstarted"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+    }
+    buildTypes {
+        debug{
+            def gmaps_api_key = System.getenv("GMAPS_KEY").toString()
+            def api_user = System.getenv("API_USER").toString()
+            def api_key = System.getenv("API_KEY").toString()
+            resValue 'string', 'google_maps_key', "AIzaSyC8H4HfEggHb3Jkb_J90maJObe0WpgAeFA"
+            resValue 'string', 'api_user', "maykon.meneses@gmail.com"
+            resValue 'string', 'api_key', "270aaa27f87062f5a839e293797e74e8519c2511c10d75820a36d57f5f1d77c0"
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'org.locationtech.jts:jts-core:1.16.1'
+
+    implementation 'androidx.multidex:multidex:2.0.0'
+
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
+    implementation ('es.situm:situm-sdk:2.41.0@aar') {
+        transitive = true
+    }
+}
